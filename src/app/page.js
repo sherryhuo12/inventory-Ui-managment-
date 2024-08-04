@@ -144,21 +144,46 @@ export default function Home() {
         fullWidth
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-      />
-      <Box border={'1px solid #333'}>
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            borderColor: '#007bff',
+            '&:hover fieldset': {
+              borderColor: '#0056b3', 
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#0056b3', 
+            },
+          },
+          backgroundColor: '#f0f8ff', 
+          borderRadius: '8px', 
+          boxShadow: 3, 
+          marginY: 2, 
+        }}
+/>
+      <Box border={'1px solid #333'}
+          borderRadius={2}
+          overflow="hidden"
+          boxShadow={3}
+          sx={{
+            background: 'linear-gradient(135deg, #f0f0f0 30%, #d3d3d3 100%)', // Add a gradient background
+            border: '2px solid #333',
+        }}
+  >
         <Box
           width="800px"
-          height="100px"
-          bgcolor={'#ADD8E6'}
+          height="70px"
+          bgcolor={'#f8f8ff'}
           display={'flex'}
+          boxShadow={3}
+          borderRadius={2}
           justifyContent={'center'}
           alignItems={'center'}
         >
-          <Typography variant={'h2'} color={'#200'} textAlign={'center'}>
+          <Typography variant={'h3'} color={'#000'} textAlign={'center'}>
             Inventory List
           </Typography>
         </Box>
-        <Stack width="800px" height="300px" spacing={2} overflow={'auto'}>
+        <Stack width="800px" height="400px" spacing={2} overflow={'auto'}>
           {filteredInventory.map(({ name, quantity }) => (
             <Box
               key={name}
@@ -167,19 +192,22 @@ export default function Home() {
               display={'flex'}
               justifyContent={'space-between'}
               alignItems={'center'}
-              bgcolor={'#f30f1f50'}
+              bgcolor={'#f0f8ff'}
               paddingX={5}
+              borderRadius={10} 
+              boxShadow={3}
+              
             >
-              <Typography variant={'h5'} color={'#200'} textAlign={'center'}>
+              <Typography variant={'h5'} color={'#000'} textAlign={'center'}>
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Typography>
               <Typography variant={'h5'} color={'#0'} textAlign={'center'}>
                 Quantity: {quantity}
               </Typography>
-              <Button variant="contained" onClick={() => addItem(name)}>
+              <Button variant="contained" sx={{ backgroundColor: 'green', '&:hover': { backgroundColor: 'darkgreen' } }} onClick={() => addItem(name)}>
                Add
               </Button>
-              <Button variant="contained" onClick={() => removeItem(name)}>
+              <Button variant="contained" sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkgreen' } }} onClick={() => removeItem(name)}>
                 Remove
               </Button>
               <Button variant="contained" onClick={() => deleteItem(name)}>
