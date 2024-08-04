@@ -83,6 +83,12 @@ export default function Home() {
     await updateInventory()
   }
 
+  const deleteItem = async (item) => {
+    const docRef = doc(collection(firestore, 'inventory'), item)
+    await deleteDoc(docRef)
+    await updateInventory()
+  }
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
@@ -148,8 +154,8 @@ export default function Home() {
           justifyContent={'center'}
           alignItems={'center'}
         >
-          <Typography variant={'h2'} color={'#333'} textAlign={'center'}>
-            Inventory Items
+          <Typography variant={'h2'} color={'#200'} textAlign={'center'}>
+            Inventory List
           </Typography>
         </Box>
         <Stack width="800px" height="300px" spacing={2} overflow={'auto'}>
@@ -157,21 +163,27 @@ export default function Home() {
             <Box
               key={name}
               width="100%"
-              minHeight="150px"
+              minHeight="50px"
               display={'flex'}
               justifyContent={'space-between'}
               alignItems={'center'}
-              bgcolor={'#f0f0f0'}
+              bgcolor={'#f30f1f50'}
               paddingX={5}
             >
-              <Typography variant={'h3'} color={'#335'} textAlign={'center'}>
+              <Typography variant={'h5'} color={'#200'} textAlign={'center'}>
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Typography>
-              <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
+              <Typography variant={'h5'} color={'#0'} textAlign={'center'}>
                 Quantity: {quantity}
               </Typography>
+              <Button variant="contained" onClick={() => addItem(name)}>
+               Add
+              </Button>
               <Button variant="contained" onClick={() => removeItem(name)}>
                 Remove
+              </Button>
+              <Button variant="contained" onClick={() => deleteItem(name)}>
+                Delete
               </Button>
             </Box>
           ))}
